@@ -7,9 +7,20 @@
 //
 
 #import "DrawView.h"
+#import "Dot.h"
 
 
 @implementation DrawView
+
+@synthesize dots;
+
+- (NSMutableArray *)dots {
+    if(nil == dots) {
+        self.dots = [NSMutableArray array];
+    }
+    return dots;
+}
+
 
 
 - (id)initWithFrame:(CGRect)frame {
@@ -19,17 +30,22 @@
     return self;
 }
 
-
 - (void)drawRect:(CGRect)rect {
-    // Drawing code
+    CGContextRef ctx = UIGraphicsGetCurrentContext();
+    CGContextSetFillColorWithColor(ctx, [[UIColor blueColor] CGColor]);
+    for(Dot *dot in self.dots) {
+        CGContextAddArc(ctx, dot.x, dot.y, 5.0f, 0.0f, 2.0f * M_PI, YES);
+        CGContextFillPath(ctx);
+    }
 }
 
-
+#pragma mark memory management methods
 - (void)dealloc {
+    [dots release], dots = nil;
     [super dealloc];
 }
 
-
+#pragma mark UI
 - (void)addDotForTouches:(NSSet *)touches withEvent:(UIEvent *)event {
     UITouch *touch = [touches anyObject];
     CGPoint location = [touch locationInView:self];
