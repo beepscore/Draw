@@ -12,9 +12,11 @@
 @interface Dot : NSObject {
     CGFloat x;
     CGFloat y;
+    UIColor* color;
 }
 #pragma mark properties
 @property(nonatomic,assign)float x;
 @property(nonatomic,assign)float y;
+@property(nonatomic,retain)UIColor *color;
 
 @end

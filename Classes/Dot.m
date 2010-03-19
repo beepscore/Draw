@@ -14,5 +14,13 @@
 #pragma mark properties
 @synthesize x;
 @synthesize y;
+@synthesize color;
+
+
+#pragma mark memory management methods
+- (void)dealloc {
+    [color release], color = nil;    
+    [super dealloc];
+}
 
 @end
